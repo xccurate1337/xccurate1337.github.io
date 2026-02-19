@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Услуги - EclipseStudios</title>
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">-->
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        :root {
+            --primary-color: #8b5cf6;
+            --primary-dark: #7c3aed;
+            --dark-bg: #0a0a0a;
+            --dark-card: #111111;
+            --dark-border: #222222;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Навигация */
+        .navbar {
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--dark-border);
+            padding: 1rem 0;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a.active {
+            color: var(--primary-color);
+        }
+
+        .contact-btn {
+            background-color: var(--primary-color);
+            color: var(--text-primary) !important;
+            padding: 0.6rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Мобильное меню */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--dark-bg);
+            z-index: 1001;
+            padding: 2rem;
+        }
+
+        .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 4rem;
+        }
+
+        .mobile-menu-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1.2rem;
+            padding: 1rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .mobile-menu-links a:hover {
+            background-color: var(--dark-card);
+        }
+
+        .mobile-menu-links a.active {
+            color: var(--primary-color);
+            background-color: rgba(139, 92, 246, 0.1);
+        }
+
+        .mobile-menu-links .contact-btn {
+            background-color: var(--primary-color);
+            color: var(--text-primary);
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        /* Герой */
+        .hero {
+            background: linear-gradient(135deg,
+                rgba(10, 10, 10, 0.95) 0%,
+                rgba(17, 17, 17, 0.9) 100%),
+                url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 6rem 0;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .hero-title span {
+            color: var(--primary-color);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Услуги */
+        .services {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .section-title span {
+            color: var(--primary-color);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background-color: var(--dark-card);
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid var(--dark-border);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.1);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .service-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .service-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .service-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .service-features li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .service-features i {
+            color: var(--primary-color);
+            font-size: 0.9rem;
+        }
+
+        .service-btn {
+            background-color: var(--primary-color);
+            color: var(--text-primary);
+            padding: 0.8rem;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .service-btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Инфо секция */
+        .info-section {
+            padding: 4rem 0;
+            background-color: var(--dark-card);
+            border-top: 1px solid var(--dark-border);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .info-card {
+            background-color: var(--dark-bg);
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--dark-border);
+        }
+
+        .info-card i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .info-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .info-card p {
+            color: var(--text-secondary);
+        }
+
+        /* Футер */
+        .footer {
+            background-color: var(--dark-card);
+            padding: 4rem 0 2rem;
+            border-top: 1px solid var(--dark-border);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo span {
+            color: var(--primary-color);
+        }
+
+        .footer-about-text {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: var(--dark-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid var(--dark-border);
+        }
+
+        .social-link:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .footer-heading {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-list {
+            list-style: none;
+        }
+
+        .footer-list li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-list a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-list a:hover {
+            color: var(--primary-color);
+        }
+
+        .contact-info {
+            color: var(--text-secondary);
+        }
+
+        .contact-info p {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .contact-info i {
+            color: var(--primary-color);
+            width: 20px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--dark-border);
+            color: var(--text-secondary);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu.active {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Мобильное меню -->
+    <button class="mobile-menu-toggle desktop-hidden" id="mobileMenuToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-links">
+            <a href="index.html"><i class="fas fa-home"></i> Главная</a>
+            <a href="catalog.html"><i class="fas fa-film"></i> Каталог</a>
+            <a href="services.html" class="active"><i class="fas fa-cogs"></i> Услуги</a>
+            <a href="about.html"><i class="fas fa-info-circle"></i> О нас</a>
+            <a href="index.html#cta" class="contact-btn"><i class="fas fa-phone"></i> Связаться</a>
+        </div>
+    </div>
+
+    <!-- Навигация -->
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">Eclipse<span>Studios</span></a>
+
+            <div class="nav-links">
+                <a href="index.html">Главная</a>
+                <a href="catalog.html">Каталог</a>
+                <a href="services.html" class="active">Услуги</a>
+                <a href="about.html">О нас</a>
+                <a href="index.html#cta" class="contact-btn">Связаться</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Герой -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="hero-title">Наши <span>Услуги</span></h1>
+            <p class="hero-subtitle">Полный спектр услуг для создания качественного контента</p>
+        </div>
+    </section>
+
+    <!-- Услуги -->
+    <main class="services">
+        <div class="container">
+            <h2 class="section-title">Что мы <span>предлагаем</span></h2>
+            <div class="services-grid">
+                <!-- Услуга 1 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-film"></i>
+                    </div>
+                    <h3 class="service-title">Кинопроизводство</h3>
+                    <p class="service-description">Полный цикл создания фильмов: от разработки сценария до финального монтажа.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Сценарий и пре-продакшн</li>
+                        <li><i class="fas fa-check"></i> Съемочный процесс</li>
+                        <li><i class="fas fa-check"></i> Пост-продакшн и монтаж</li>
+                        <li><i class="fas fa-check"></i> Цветокоррекция и звук</li>
+                    </ul>
+                    <button class="service-btn">Узнать больше</button>
+                </div>
+
+                <!-- Услуга 2 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3 class="service-title">Рекламные ролики</h3>
+                    <p class="service-description">Создание эффективных рекламных кампаний для брендов любого масштаба.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Разработка концепции</li>
+                        <li><i class="fas fa-check"></i> Съемка и производство</li>
+                        <li><i class="fas fa-check"></i> Анимация и графика</li>
+                        <li><i class="fas fa-check"></i> Таргетирование и аналитика</li>
+                    </ul>
+                    <button class="service-btn">Узнать больше</button>
+                </div>
+
+                <!-- Услуга 3 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h3 class="service-title">Визуальные эффекты</h3>
+                    <p class="service-description">Создание впечатляющих VFX для фильмов, сериалов и рекламы.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> CGI и 3D-графика</li>
+                        <li><i class="fas fa-check"></i> Композитинг и кеинг</li>
+                        <li><i class="fas fa-check"></i> Динамические симуляции</li>
+                        <li><i class="fas fa-check"></i> Матчмувинг</li>
+                    </ul>
+                    <button class="service-btn">Узнать больше</button>
+                </div>
+
+                <!-- Услуга 4 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <h3 class="service-title">Звуковое оформление</h3>
+                    <p class="service-description">Профессиональная работа со звуком для максимального погружения.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Оригинальная музыка</li>
+                        <li><i class="fas fa-check"></i> Саунд-дизайн</li>
+                        <li><i class="fas fa-check"></i> Запись и сведение</li>
+                        <li><i class="fas fa-check"></i> Аудио-постпродакшн</li>
+                    </ul>
+                    <button class="service-btn">Узнать больше</button>
+                </div>
+
+                <!-- Услуга 5 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="service-title">Креативная концепция</h3>
+                    <p class="service-description">Разработка уникальных идей и творческих стратегий для проектов.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Брейншторминг</li>
+                        <li><i class="fas fa-check"></i> Разработка сценария</li>
+                        <li><i class="fas fa-check"></i> Визуальное сторителлинг</li>
+                        <li><i class="fas fa-check"></i> Питчинг и презентации</li>
+                    </ul>
+                    <button class="service-btn">Узнать больше</button>
+                </div>
+
+                <!-- Услуга 6 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="service-title">Дистрибуция</h3>
+                    <p class="service-description">Помощь в продвижении и распространении контента на мировом рынке.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Маркетинговая стратегия</li>
+                        <li><i class="fas fa-check"></i> Продвижение в соцсетях</li>
+                        <li><i class="fas fa-check"></i> Работа с платформами</li>
+                        <li><i class="fas fa-check"></i> Международная дистрибуция</li>
+                    </ul>
+                    <button class="service-btn">Узнать больше</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Инфо секция -->
+    <section class="info-section">
+        <div class="container">
+            <div class="info-grid">
+                <div class="info-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Быстрые сроки</h3>
+                    <p>Мы ценим ваше время и соблюдаем все договоренности по срокам</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Гарантия качества</h3>
+                    <p>Все работы проходят многоэтапный контроль качества</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-headset"></i>
+                    <h3>Поддержка 24/7</h3>
+                    <p>Наша команда всегда на связи для решения любых вопросов</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="footer-logo">Eclipse<span>Studios</span></div>
+                    <p class="footer-about-text">Создаем кино, которое вдохновляет и запоминается навсегда.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4 class="footer-heading">Быстрые ссылки</h4>
+                    <ul class="footer-list">
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="catalog.html">Каталог фильмов</a></li>
+                        <li><a href="services.html">Наши услуги</a></li>
+                        <li><a href="about.html">О компании</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-contact">
+                    <h4 class="footer-heading">Контакты</h4>
+                    <div class="contact-info">
+                        <p><i class="fas fa-map-marker-alt"></i> Москва, ул. Киностудийная, 15</p>
+                        <p><i class="fas fa-envelope"></i> info@eclipsestudios.com</p>
+                        <p><i class="fas fa-phone"></i> +7 (999) 123-45-67</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2025 EclipseStudios. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Обработчики кнопок "Узнать больше"
+        document.querySelectorAll('.service-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const card = btn.closest('.service-card');
+                const title = card.querySelector('.service-title').textContent;
+                alert(`Услуга: ${title}\nМы свяжемся с вами для обсуждения деталей.`);
+            });
+        });
+    </script>
+</body>
+</html>
